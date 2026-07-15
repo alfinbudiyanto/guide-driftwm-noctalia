@@ -168,6 +168,7 @@ git clone --depth 1 https://github.com/noctalia-dev/noctalia-qs.git ~/builds/noc
 cd ~/builds/noctalia-qs
 
 "***
+Well if you ran ooption 2 i think is dont need to trying install this all, just skip it
 here is missing some packages
 well you gotta install:
 - Install CLI11
@@ -324,7 +325,7 @@ shell.qml (entry point)
 
 MIT License — see [LICENSE](./LICENSE) for details.
 
-===
+---
 
 well just try to run this one command
 `journalctl -xe`
