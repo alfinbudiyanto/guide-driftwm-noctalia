@@ -163,11 +163,21 @@ well you gotta install:
   * sudo dnf install polkit-devel
 - Install the jemalloc
   * sudo dnf install jemalloc-devel
+
+you also can install missing package in bellow before continue to next steps
+another missing package is once this one command
 ***"
 
 cmake -GNinja -B build \
   -DCMAKE_BUILD_TYPE=RelWithDebInfo \
-  -DCMAKE_INSTALL_PREFIX=/usr/local
+  -DCMAKE_INSTALL_PREFIX=/usr/local \
+  -DINSTALL_QMLDIR=/usr/local/lib/qml
+
+"***
+here is also missing package, before run 'cmake --build build' you must install
+- sudo dnf install pam-devel
+***"
+
 cmake --build build
 sudo cmake --install build
 ```
