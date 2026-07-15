@@ -1,7 +1,126 @@
 # driftwm-noctalia
 user guide to install driftwm with noctalia for Fedora Linux
 
+## Source Code
+- [driftwm](https://github.com/malbiruk/driftwm)
+- [driftwm-noctalia](https://github.com/youssefvdel/driftwm-noctalia) — noctalia shell fork adapted for driftwm
 ---
+
+# *driftwm*
+
+## Install
+
+### Build from source
+
+Requires Rust 1.88+ (edition 2024).
+
+Install build dependencies:
+
+**Fedora:**
+
+```bash
+sudo dnf install libseat-devel libdisplay-info-devel libinput-devel mesa-libgbm-devel libxkbcommon-devel
+```
+
+Then build and install:
+
+```bash
+git clone https://github.com/malbiruk/driftwm.git
+cd driftwm
+make build
+sudo make install
+```
+
+To uninstall, run `sudo make uninstall` from the repository.
+
+Then build and install:
+
+```bash
+git clone https://github.com/malbiruk/driftwm.git
+cd driftwm
+make build
+sudo make install
+```
+
+To uninstall, run `sudo make uninstall` from the repository.
+
+### Optional runtime dependencies
+
+driftwm runs standalone — none of these are required — but each enables or
+improves a feature:
+
+- `xwayland-satellite` (≥ 0.7) — X11 app support (see below).
+- `xdg-desktop-portal` + `xdg-desktop-portal-wlr` (≥ 0.8.0) or `xdg-desktop-portal-cosmic` — screencasting, and screenshot apps that go through the portal (e.g. Flameshot). wlr needs a dmenu-style picker in `$PATH` (`wmenu`/`wofi`/`rofi`/`bemenu`/`mew`/`fuzzel`) to choose what to share.
+- `grim` + `slurp` — screenshots (+ cropping to region). driftwm also has a built-in canvas/DPI capture: see [IPC › Screenshots](docs/ipc.md#screenshots).
+- `adwaita-fonts` — renders SSD title bars in `Adwaita Sans` to match GTK apps; without it a generic sans-serif is substituted. Font, size, weight, and alignment are configurable under `[decorations]`.
+- A cursor theme — most desktops set one up already; on a bare install driftwm falls back to a basic built-in arrow.
+
+**X11 apps** run through [xwayland-satellite](https://github.com/Supreeeme/xwayland-satellite),
+which driftwm spawns at startup, exporting `DISPLAY=:N` so X11 clients connect
+transparently — no extra config beyond having the binary in `$PATH`.
+
+- **Arch:** `sudo pacman -S xwayland-satellite`
+- **Fedora:** `sudo dnf install xwayland-satellite`
+- **NixOS:** `pkgs.xwayland-satellite`
+- **Debian/Ubuntu:** not yet packaged — `cargo install --locked xwayland-satellite`
+
+If satellite isn't found at startup, driftwm logs a warning and continues without
+X11 support. You can override the binary path or disable the integration in
+[`config.reference.toml`](config.reference.toml) under `[xwayland]`.
+
+### Running
+
+driftwm auto-detects whether it's running nested (inside an existing Wayland
+session) or on real hardware (from a TTY). Just run `driftwm`. For display
+manager integration, select "driftwm" from the session menu.
+
+> [!TIP]
+> When launched by a display manager, driftwm runs as a systemd user service — view logs with `journalctl --user -u driftwm.service` (add `-f` to follow). Run directly and logs go to stderr.
+
+## Quick start
+
+`mod` is Super by default. Terminal and launcher are auto-detected (foot/alacritty/kitty, fuzzel/wofi/bemenu); override in config.
+
+| Shortcut           | Action        |
+| ------------------ | ------------- |
+| `mod+return`       | Open terminal |
+| `mod+d`            | Open launcher |
+| `mod+q`            | Close window  |
+| `mod+l`            | Lock screen   |
+| `mod+ctrl+shift+q` | Quit          |
+
+Feature-specific bindings (navigation, zoom, snap) are in their respective sections above.
+
+## Configuration
+
+Config file: `~/.config/driftwm/config.toml` (respects `XDG_CONFIG_HOME`).
+
+```bash
+mkdir -p ~/.config/driftwm
+cp /etc/driftwm/config.reference.toml ~/.config/driftwm/config.toml
+```
+
+Missing file uses built-in defaults. Partial configs merge with defaults —
+only specify what you want to change. Use `"none"` to unbind a default binding.
+Validate without starting: `driftwm --check-config`.
+
+```toml
+# Launch programs at startup
+autostart = ["waybar", "swaync", "swayosd-server"]
+```
+
+Every option is documented in **[docs/config.md](docs/config.md)** (generated
+from [`config.reference.toml`](config.reference.toml)): input settings,
+scroll/momentum tuning, snap behavior, decorations, effects, per-output config,
+gesture bindings, mouse bindings, touch bindings, and window rules.
+
+
+## License
+
+GPL-3.0-or-later
+
+---
+# *Noctalia*
 
 ## Installation
 
