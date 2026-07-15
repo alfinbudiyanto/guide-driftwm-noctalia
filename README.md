@@ -140,6 +140,19 @@ sudo dnf install cmake ninja-build gcc-c++ \
   qt6-qtbase-private-devel wayland-devel wayland-protocols-devel \
   pipewire-devel libxkbcommon-devel
 
+* For install dependencies i think is really missing packages has needed to running then i made new *
+# Install build dependencies *OPTION 2 FOR MORE COMPLEX*
+sudo dnf install \
+  cmake ninja-build gcc-c++ just meson \
+  qt6-qtbase-devel qt6-qtdeclarative-devel qt6-qtwayland-devel qt6-qtbase-private-devel \
+  wayland-devel wayland-protocols-devel libxkbcommon-devel \
+  pipewire-devel wireplumber-devel \
+  polkit-devel pam-devel jemalloc-devel cli11-devel \
+  sdbus-cpp-devel libEGL-devel mesa-libGLES-devel \
+  freetype-devel fontconfig-devel cairo-devel pango-devel harfbuzz-devel \
+  glib2-devel libcurl-devel libwebp-devel librsvg2-devel \
+  libxml2-devel tomlplusplus-devel json-devel md4c-devel
+
 # Install runtime dependencies
 sudo dnf install wlr-randr wl-clipboard brightnessctl
 ```
@@ -170,8 +183,13 @@ another missing package is once this one command
 
 cmake -GNinja -B build \
   -DCMAKE_BUILD_TYPE=RelWithDebInfo \
-  -DCMAKE_INSTALL_PREFIX=/usr/local \
-  -DINSTALL_QMLDIR=/usr/local/lib/qml
+  -DCMAKE_INSTALL_PREFIX=/usr/local
+
+## When you get some errors try this one
+  cmake -GNinja -B build \
+    -DCMAKE_BUILD_TYPE=RelWithDebInfo \
+    -DCMAKE_INSTALL_PREFIX=/usr/local \
+    -DINSTALL_QMLDIR=/usr/local/lib/qml
 
 "***
 here is also missing package, before run 'cmake --build build' you must install
@@ -305,3 +323,11 @@ shell.qml (entry point)
 ## License
 
 MIT License — see [LICENSE](./LICENSE) for details.
+
+===
+
+well just try to run this one command
+`journalctl -xe`
+
+then if you see annoying text like "ERROR", "WARN" or just "libinput error" for spesific event, try to add your user to the input group
+`sudo usermod -aG input $USER`
