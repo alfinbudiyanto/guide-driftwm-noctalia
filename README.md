@@ -25,21 +25,6 @@ sudo dnf install cmake ninja-build gcc-c++ \
 sudo dnf install wlr-randr wl-clipboard brightnessctl
 ```
 
-### Arch Linux
-
-```bash
-sudo pacman -S cmake ninja gcc qt6-base qt6-declarative qt6-wayland \
-  wayland wayland-protocols pipewire libxkbcommon wlr-randr wl-clipboard
-```
-
-### Ubuntu/Debian
-
-```bash
-sudo apt install cmake ninja-build g++ qt6-base-dev qt6-declarative-dev \
-  qt6-wayland-dev libwayland-dev wayland-protocols libpipewire-0.3-dev \
-  libxkbcommon-dev wlr-randr wl-clipboard
-```
-
 ---
 
 ### Step 1: Install noctalia-qs
