@@ -113,3 +113,42 @@ ls -t /run/user/1000/quickshell/by-id/ | head -1 | xargs -I{} \
 ```
 
 ---
+
+## Troubleshooting
+
+### Shell not launching from autostart
+
+Make sure `-d` (daemonize) is in the autostart command:
+```toml
+autostart = ["qs -c noctalia-shell -d"]
+```
+
+### Bar not visible / not clickable
+
+The bar uses `WlrLayer.Overlay` on driftwm. If you changed the bar position or monitor config, the bar might be off-screen or hidden. Check:
+```bash
+cat /run/user/1000/driftwm/state | grep layers
+```
+You should see entries like `noctalia-bar-content-<output-name>`.
+
+### IPC commands fail with "No running instances"
+
+This means the shell process isn't registered properly. Kill any stale instances and restart:
+```bash
+pkill -f "qs -c noctalia-shell"
+qs -c noctalia-shell -d
+```
+
+### High CPU usage
+
+During first startup, the shell loads icons, plugins, and fonts (~1 minute at high CPU). After settling, expect ~10-15% CPU. If it stays above 30%, check for plugin issues:
+```bash
+# Check which plugins are loaded
+cat ~/.config/noctalia/plugins.json
+```
+
+### Settings not persisting
+
+Settings are stored in `~/.config/noctalia/settings.json`. If driftwm-specific settings (wallpaper=enabled, blur=enabled) keep reverting, the DriftwmService.initialize() auto-applies them at every startup. This is expected behavior.
+
+---
