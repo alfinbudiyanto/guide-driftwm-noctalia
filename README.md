@@ -130,6 +130,7 @@ GPL-3.0-or-later
 - **Build tools**: cmake, ninja, gcc/clang
 - **Qt6 development**: qt6-qtbase-devel, qt6-qtdeclarative-devel, qt6-qtwayland-devel
 - **Runtime deps**: pipewire, wireplumber (for audio), upower (for battery)
+  `(sudo dnf install pipewire wireplumber upower)`
 
 ### Fedora
 
@@ -155,6 +156,8 @@ sudo dnf install \
 
 # Install runtime dependencies
 sudo dnf install wlr-randr wl-clipboard brightnessctl
+OR
+sudo dnf install pipewire wireplumber upower wlr-randr wl-clipboard brightnessctl
 ```
 
 ---
