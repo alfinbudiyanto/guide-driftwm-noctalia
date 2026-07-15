@@ -1,6 +1,8 @@
 # driftwm-noctalia
 user guide to install driftwm with noctalia for Fedora Linux
 
+---
+
 ## Installation
 
 ### Prerequisites
@@ -152,3 +154,28 @@ cat ~/.config/noctalia/plugins.json
 Settings are stored in `~/.config/noctalia/settings.json`. If driftwm-specific settings (wallpaper=enabled, blur=enabled) keep reverting, the DriftwmService.initialize() auto-applies them at every startup. This is expected behavior.
 
 ---
+
+## Architecture
+
+```
+shell.qml (entry point)
+├── Services/Compositor/CompositorService.qml  (detection router)
+│   └── DriftwmService.qml  ★ this fork's backend
+├── Modules/
+│   ├── Bar/            (taskbar + widgets including CanvasPosition)
+│   ├── Panels/         (launcher, control center, settings, etc.)
+│   ├── MainScreen/     (per-output panel host + bar)
+│   ├── Dock/           (macOS-style dock)
+│   ├── Background/     (wallpaper — disabled on driftwm)
+│   ├── Notification/   (notification popups)
+│   ├── OSD/            (on-screen display)
+│   └── LockScreen/     (session lock)
+├── Services/           (backend logic)
+└── Commons/            (shared utilities, settings, i18n)
+```
+
+---
+
+## License
+
+MIT License — see [LICENSE](./LICENSE) for details.
