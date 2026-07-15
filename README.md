@@ -153,6 +153,18 @@ Build the Quickshell fork from source (required — standard quickshell lacks no
 ```bash
 git clone --depth 1 https://github.com/noctalia-dev/noctalia-qs.git ~/builds/noctalia-qs
 cd ~/builds/noctalia-qs
+
+"***
+here is missing some packages
+well you gotta install:
+- Install CLI11
+  * sudo dnf install cli11-devel
+- Install the polkit
+  * sudo dnf install polkit-devel
+- Install the jemalloc
+  * sudo dnf install jemalloc-devel
+***"
+
 cmake -GNinja -B build \
   -DCMAKE_BUILD_TYPE=RelWithDebInfo \
   -DCMAKE_INSTALL_PREFIX=/usr/local
